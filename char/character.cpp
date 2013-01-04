@@ -1,4 +1,6 @@
 #include "character.h"
+#include "game.h"
+#include "item.h"
 using namespace WoS;
 using namespace std;
 
@@ -17,7 +19,48 @@ const string Character::name() const
 	return cName;
 }
 
-
-int go(const string direction)
+const vector<Item*> Character::getItems() const
 {
+	return items;
 }
+
+
+string Character::go(const string direction)
+{
+	return game->moveCharacter(ID(),direction);
+}
+
+
+string Character::pick_up(string item)
+{
+	Item* tmp = game->takeItem(cID,item);
+	if(tmp != NULL)
+	{
+		items.push_back(tmp);
+		cout << item << " picked up." << endl;
+	}
+	else
+	{
+		cout << item << " was not found" << endl;
+	}
+}
+
+string Character::drop(string item)
+{
+	for(vector<Item*>::iterator it = items.begin();it != items.end();++it)
+	{
+		if((*it)->getName().compare(item) == 0)
+		{
+			// item was found in inventory
+			game->dropItem(cID, (*it));
+			items.erase(it);
+			string ret = "Dropped item ";
+			ret.append(item);
+			return ret;
+		}
+	}
+	string ret = "Was not able to drop ";
+	ret.append(item);
+	return ret;
+}
+

@@ -7,9 +7,6 @@ Weapon::Weapon()
 	weight = 0;
 	volume = 0;
 	value = 0;
-
-
-
 }
 
 Weapon::~Weapon()

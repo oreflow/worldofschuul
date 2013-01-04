@@ -16,6 +16,14 @@ Item& Item::operator=(Item& i)
 {
 
 }
+bool Item::operator==(Item& i)
+{
+	return name.compare(i.name);
+}
+const string Item::getName() const
+{
+return name;
+}
 const int Item::getWeight() const
 {
 return weight;

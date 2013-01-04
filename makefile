@@ -24,11 +24,11 @@ powerup: it/powerup.cpp it/powerup.h
 key: it/key.cpp it/key.h
 	g++ $(FLAGS) $(DIRS) -c it/key.cpp
 	
-room: room.cpp room.h items characters 
+room: room.cpp room.h items 
 	g++ $(FLAGS) $(DIRS) -c room.cpp 
 
-game: game.cpp characters items room
-	g++ $(FLAGS) $(DIRS)  game.cpp -o WoS.o
+game: game.cpp characters items room 
+	g++ $(FLAGS) $(DIRS) room.o item.o player.o game.cpp -o WoS.o
 
 clean:
 	rm *.o

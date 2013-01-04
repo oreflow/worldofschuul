@@ -3,12 +3,11 @@
 #include <stdlib.h>
 #include <string>
 #include <vector>
-#include "item.h"
-
 using namespace std;
-namespace WoS
-{
+namespace WoS{
 
+class Game;
+class Item;
 class Character{
 	protected:
 		int cID;
@@ -19,26 +18,31 @@ class Character{
 		int energy;	
 		int maxenergy;
 
+		vector<Item*> items;
 		
+		Game* game;		
 		
-		// returns the id of the room reached by the go command
-		int go(const string direction);
+		// returns empty string if move was possible, error message otherwise
+		string go(const string direction);
 
 		// returns the damage and attack type
-		virtual string fight(Character& character) = 0;
+		virtual string fight(string character) = 0;
 
 		// returns the item picked up or NULL if pickup failed
-		virtual Item& pick_up(Item& item) = 0;
+		string pick_up(string item);
 
-		// returns 0 if item was dropped or error ID otherwise
-		virtual int drop(Item& item) = 0;
+		// returns empty string if pickup was possible, error message otherwise
+		string drop(string item);
 
 		//returns answer from character
-		virtual bool talk_to(Character& character) = 0;
+		virtual string talk_to(string character) = 0;
+
+		virtual void action(const string act)= 0;
 
 	public:
 		const int ID() const;
 		const string type() const;
 	   	const string name() const;
+		const vector<Item*> getItems() const;
 };
 }

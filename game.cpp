@@ -1,6 +1,8 @@
 #include "game.h"
+
 using namespace WoS;
 using namespace std;
+
 Game::Game()
 {
 	initializeRooms();
@@ -47,7 +49,19 @@ vector<Character*> Game::getCharacters(const Room& room) const
 	return cir[0];//room.ID()];
 }
 
-bool Game::moveCharacter(const Character& character, Room& newRoom)
+Item* Game::takeItem(int characterID, string item)
+{
+	Room r = *currentRoom[characterID];
+	return r.removeItem(item);
+
+}
+
+void Game::dropItem(int characterID, Item* item)
+{
+	currentRoom[characterID]->addItem(item);
+}
+
+string Game::moveCharacter(int characterID, string direction)
 {
 	//cir.erase(find(cir.begin(),cir.end(),character.ID()));
 	
@@ -55,4 +69,9 @@ bool Game::moveCharacter(const Character& character, Room& newRoom)
 
 	//cir[newRoom].push_back(&character);
 
+}
+
+void Game::setPlayer(Character* ch)
+{
+	character[0] = ch;
 }

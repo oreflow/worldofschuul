@@ -20,9 +20,11 @@ class Item{
 	Item();
 	~Item();
 	Item& operator=(Item& i);
-	const int getWeight()const;
-	const int getVolume()const;
-	const int getValue()const;
+	bool operator==(Item& i);
+	const string getName() const;
+	const int getWeight() const;
+	const int getVolume() const;
+	const int getValue() const;
 	virtual string getDescription()=0;
 
 };
