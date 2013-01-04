@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 #include "item.h"
-#include "game.cpp"
 
 using namespace std;
 namespace WoS
@@ -12,15 +11,14 @@ namespace WoS
 
 class Character{
 	protected:
-		const int cID;
-		const string cType;
-		const string cName;
+		int cID;
+		string cType;
+		string cName;
 		int health;
-		const int maxhealth;
+		int maxhealth;
 		int energy;	
-		const int maxenergy;
+		int maxenergy;
 
-		Game* game;
 		
 		
 		// returns the id of the room reached by the go command
@@ -30,7 +28,7 @@ class Character{
 		virtual string fight(Character& character) = 0;
 
 		// returns the item picked up or NULL if pickup failed
-		virtual Item pick_up(Item& item) = 0;
+		virtual Item& pick_up(Item& item) = 0;
 
 		// returns 0 if item was dropped or error ID otherwise
 		virtual int drop(Item& item) = 0;
@@ -42,6 +40,5 @@ class Character{
 		const int ID() const;
 		const string type() const;
 	   	const string name() const;
-		~Character();
 };
 }

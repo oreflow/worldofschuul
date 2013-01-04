@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -18,12 +19,17 @@ namespace WoS{
 
 	class Game
 	{
-		private:
+		protected:
+		int gameTimer;
 		vector<Room*> room;
 		vector<Character*> character;
 
 		vector<vector<Character*>> cir;
 		vector<Room*> currentRoom;
+
+		void initializeRooms();
+		void initializeCharacters();
+
 		public:
 
 		Room& getRoom(const int roomID) const;
@@ -33,26 +39,26 @@ namespace WoS{
 		vector<Character*> getCharacters(const int roomID) const;
 		vector<Character*> getCharacters(const Room& room) const;
 
-		bool moveCharacter(const Character& character, const Room newRoom);
-
+		bool moveCharacter(const Character& character, Room& newRoom);
 
 
 		Game();
 		~Game();
 	};
-
-	
 }
-
+	
+using namespace WoS;
 int main()
 	{
 		bool active = true;
-		Game g = new Game;
+		Game g ;
 		string str;
 		while(active)
 		{
 		cin >> str;
-		cout << "Game Over" << endl;
+		cout << "Game Over!\nDu skrev: " << str << endl;
+		active = false;
 		}
 		return 0;
 	}
+

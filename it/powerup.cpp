@@ -3,6 +3,9 @@ using namespace WoS;
 using namespace std;
 Powerup::Powerup()
 {
+	weight = 0;
+	volume = 0;
+	value = 0;
 
 }
 

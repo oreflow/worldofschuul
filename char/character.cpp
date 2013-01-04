@@ -17,10 +17,6 @@ const string Character::name() const
 	return cName;
 }
 
-Character::~Character()
-{
-game = NULL;
-}
 
 int go(const string direction)
 {

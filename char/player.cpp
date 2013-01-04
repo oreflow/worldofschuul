@@ -1,17 +1,18 @@
 #include "player.h"
-
+using namespace WoS;
+using namespace std;
 Player::Player()
 	{
-		actorID = 0;
-		actorType = "player";
-		actorName = "player";
+		cID = 0;
+		cType = "player";
+		cName = "player";
  	}
 
 Player::Player(const string name)
 	{
-		actorID = 0;
-		actorType = "player";
-		actorName = name;
+		cID = 0;
+		cType = "player";
+		cName = name;
  	}
 
 Player::~Player()
