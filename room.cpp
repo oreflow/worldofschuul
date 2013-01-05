@@ -22,6 +22,13 @@ void Room::addNeighbour(string str, Room* room)
 	neighbours.insert(pair<string,Room*>(str,room));
 }
 
+bool Room::isNeighbour(const string str)
+{
+	if(neighbours[str] == 0)
+		return false;
+	return true;
+}
+
 const int Room::ID() const
 {
 	return rID;

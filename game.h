@@ -36,6 +36,8 @@ namespace WoS{
 		void loadItems();
 		public:
 
+		string getCurrentRoomDescription() const;
+
 		Room& getRoom(const int roomID) const;
 		Room& getRoom(const Character& character) const;
 		
@@ -46,6 +48,7 @@ namespace WoS{
 		Item* takeItem(int characterID, string item);
 		void dropItem(int characterID, Item* item);
 
+		bool canMove(const int characterID, const string direction) const;
 		string moveCharacter(int characterID, string direction);
 		void runCommand(string command);
 

@@ -27,6 +27,8 @@ class Room{
 	// add neighbour by string direction and pointer to neighbour
 	void addNeighbour(string str, Room* room);
 
+	bool isNeighbour(const string str);
+
 	// returns ID of this room
 	const int ID() const;
 	// returns the name of this room

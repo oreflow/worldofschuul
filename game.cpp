@@ -57,7 +57,6 @@ void Game::loadCharacters(string str)
 	currentRoom.push_back(rooms[0]);
 	cir[0].push_back(characters[0]);
 	chars++;
-
 }
 
 void Game::loadItems()
@@ -68,6 +67,11 @@ void Game::loadItems()
 Game::~Game()
 {
 
+}
+
+string Game::getCurrentRoomDescription() const
+{
+	return getRoom(*characters.at(0)).getDescription();
 }
 
 Room& Game::getRoom(const int roomID) const
@@ -99,12 +103,16 @@ Item* Game::takeItem(int characterID, string item)
 {
 	Room r = *currentRoom[characterID];
 	return r.removeItem(item);
-
 }
 
 void Game::dropItem(int characterID, Item* item)
 {
 	currentRoom[characterID]->addItem(item);
+}
+
+bool Game::canMove(const int characterID, const string direction) const
+{
+	return getRoom(characterID).isNeighbour(direction);
 }
 
 string Game::moveCharacter(int characterID, string direction)
@@ -117,18 +125,13 @@ string Game::moveCharacter(int characterID, string direction)
 		return "There is no room in that direction";
 	}
 	else{
-		for(vector<Character*>::iterator it = cir[oldRoom.ID()].begin();it != cir[oldRoom.ID()].end();++it)
-		{
-			if((*it)->ID() == characterID)
-			{
-				cir[oldRoom.ID()].erase(it);
-			}
-		}
+		cir[oldRoom.ID()].clear();
 
 		cir[(*newRoom).ID()].push_back(characters[characterID]);
 		currentRoom[characterID] = newRoom;
 	}
-
+	//TODO Maybe another return value?
+	return "Moved " + direction;
 }
 
 void Game::runCommand(string command)

@@ -1,5 +1,6 @@
 #include "player.h"
 #include "item.h"
+#include <sstream>
 using namespace WoS;
 using namespace std;
 
@@ -33,12 +34,19 @@ void Player::action(const string act)
 	// Available commands:
 	// go <direction>
 	//
-	
-	
-	
 	cout << "player acting:" << act << endl;
 	
+	stringstream ss(act);
 
+	string cmd;
+
+	// Parses first word
+	ss >> cmd;
+	if(cmd.compare("go") == 0)
+	{
+		ss >> cmd;
+		cout << go(cmd) << endl << endl;
+	}
 }
 
 string Player::fight(string character)

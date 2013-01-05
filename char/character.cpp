@@ -27,7 +27,15 @@ const vector<Item*> Character::getItems() const
 
 string Character::go(const string direction)
 {
-	return game->moveCharacter(ID(),direction);
+	if(game->canMove(ID(), direction))
+	{
+		return game->moveCharacter(ID(),direction);
+	}
+	else
+	{
+		//TODO Maybe another return value.
+		return "You can't go " + direction + " from this location!";
+	}
 }
 
 
