@@ -66,7 +66,14 @@ void Game::loadItems()
 
 Game::~Game()
 {
-
+	for(vector<Room*>::iterator it = rooms.begin();it != rooms.end();++it)
+	{
+		delete (*it);
+	}	
+	for(vector<Character*>::iterator it = characters.begin();it != characters.end();++it)
+	{
+		delete (*it);
+	}
 }
 
 string Game::getCurrentRoomDescription() const
@@ -112,20 +119,21 @@ void Game::dropItem(int characterID, Item* item)
 
 bool Game::canMove(const int characterID, const string direction) const
 {
-	return getRoom(characterID).isNeighbour(direction);
+	return currentRoom[0]->isNeighbour(direction);
 }
 
 string Game::moveCharacter(int characterID, string direction)
 {
-	Room oldRoom = getRoom(characterID);
-	Room* newRoom = oldRoom.getDirection(direction);
+	Room* oldRoom = currentRoom[characterID];
+	Room* newRoom = oldRoom->getDirection(direction);
 
 	if(newRoom == NULL)
 	{
+		// Doesn't seem to work, crashes on the previous line instead.
 		return "There is no room in that direction";
 	}
 	else{
-		cir[oldRoom.ID()].clear();
+		cir[oldRoom->ID()].clear();
 
 		cir[(*newRoom).ID()].push_back(characters[characterID]);
 		currentRoom[characterID] = newRoom;
