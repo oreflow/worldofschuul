@@ -43,12 +43,12 @@ void Player::action(const string act)
 
 string Player::fight(string character)
 {
-
+	return 0;
 }
 
 string Player::talk_to(string character)
 {
-
+	return 0;
 }
 
 

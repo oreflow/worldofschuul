@@ -1,5 +1,5 @@
 #include "npc.h"
-#include "game.h"
+#include "../game.h"
 #include "item.h"
 using namespace WoS;
 using namespace std;
@@ -33,11 +33,11 @@ void NPC::action(const string playerAction)
 }
 string NPC::fight(string character)
 {
-
+	return "";
 }
 
 string NPC::talk_to(string character)
 {
-
+	return "";
 }
 

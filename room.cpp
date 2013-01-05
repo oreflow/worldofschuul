@@ -69,6 +69,7 @@ Item* Room::removeItem(Item* item)
 bool Room::addItem(Item* item)
 {
 	items.push_back(item);
+	return 0;
 }
 
 const string Room::getDescription() const
