@@ -31,12 +31,12 @@ void NPC::action(const string playerAction)
 {
 
 }
-string fight(string character)
+string NPC::fight(string character)
 {
 
 }
 
-string talk_to(string character)
+string NPC::talk_to(string character)
 {
 
 }

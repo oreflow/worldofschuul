@@ -1,0 +1,32 @@
+8
+startRoom
+The walls of the room are painted in a wierd green color that reminds you of a forest. There is a door in the north wall, which looks suspiciously much like a door that would lead to some knowledge.
+firstRoom
+A grand hall having a northern and southern exit
+computerroom
+A room with an exit to the east
+Office
+a office having a door to the south
+Lab room
+A room with an eastern, northern and southern exit
+Lobby
+A small Lobby with a door to the north and one to the west
+Lecture hall
+A lecture hall having a door to the south
+Corridor
+thin passway having exits to the northeast, northwest, southeast, southwest and south 
+14
+0,1,north
+1,0,south
+1,7,north
+2,7,east
+3,7,east
+4,7,west
+5,7,west
+5,6,north
+6,5,south
+7,1,south
+7,2,southwest
+7,3,northwest
+7,4,southeast
+7,5,northeast

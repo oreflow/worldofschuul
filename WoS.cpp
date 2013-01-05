@@ -12,13 +12,11 @@ int main()
 		cout << "You have entered the World of Schuul \nyour goal in this game is to learn stuff\nto your help you have the following commands:\ngo <direction>\nsearch\npick up <item>\ndrop <item>\nuse <item> on <target>\n" << endl;
 		cout << "Enter your name: " << endl;
 		cin >> str;
-		Game g;
-		Player* p = new Player(&g, str);
-		g.setPlayer(p);
+		Game g(str);
 
 		while(active)
 		{
-		cin >> str;
+			getline(cin,str);
 		
 		if(str.compare("exit") == 0 ||str.compare("quit") == 0 )
 		  {	

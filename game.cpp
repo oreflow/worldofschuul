@@ -1,25 +1,30 @@
 #include "game.h"
 #include <fstream>
+#include <sstream>
 
 using namespace WoS;
 using namespace std;
 
-Game::Game()
+Game::Game(string str)
 {
+	chars = 0;
+	gameTimer = 0;
 	loadMap();
-	loadCharacters();
+
+	loadCharacters(str);
+	
 	cout << "Game map initialized" << endl;
 }
 void Game::loadMap()
 {
-	/*
+	
 	rooms.clear();
 	ifstream in;
 	string name;
 	string description;
 	in.open("gamemap.dat");
 	getline(in,name);
-	int rs = atoi(name);
+	rs = atoi(name.c_str());
 	for(int i=0;i<rs;i++)
 	{
 		getline(in,name);
@@ -27,13 +32,31 @@ void Game::loadMap()
 		rooms.push_back(new Room(i,name,description));
 	}	
 	getline(in,name);
-	int relations = atoi(name);
+	int relations = atoi(name.c_str());
+	string str;
+	for(int i=0;i<relations;i++)
+	{
+		getline(in,str);
+		string from,to,dir;
+		istringstream ss( str );
 
-*/
+		getline( ss, from, ',' );
+		getline( ss, to,  ',' );
+		getline( ss, dir,   ',' );
+		rooms[atoi(from.c_str())]->addNeighbour(dir,rooms[atoi(to.c_str())]);
+		//cout << "From: " << from << " To: " << to << endl;
+	}
 }
 
-void Game::loadCharacters()
+void Game::loadCharacters(string str)
 {
+
+	cir.resize(rs);
+	Player* p = new Player(this, str);
+	characters.push_back(p);
+	currentRoom.push_back(rooms[0]);
+	cir[0].push_back(characters[0]);
+	chars++;
 
 }
 
@@ -106,17 +129,6 @@ string Game::moveCharacter(int characterID, string direction)
 		currentRoom[characterID] = newRoom;
 	}
 
-}
-
-void Game::setPlayer(Character* ch)
-{
-	if(characters.size() == 0)
-	{
-		characters.push_back(ch);
-	}
-	else{
-		characters[0] = ch;
-	}
 }
 
 void Game::runCommand(string command)

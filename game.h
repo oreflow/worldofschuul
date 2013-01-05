@@ -32,7 +32,7 @@ namespace WoS{
 		vector<Room*> currentRoom;
 
 		void loadMap();
-		void loadCharacters();
+		void loadCharacters(string str);
 		void loadItems();
 		public:
 
@@ -47,11 +47,10 @@ namespace WoS{
 		void dropItem(int characterID, Item* item);
 
 		string moveCharacter(int characterID, string direction);
-		void setPlayer(Character* ch);
 		void runCommand(string command);
 
 
-		Game();
+		Game(string str);
 		~Game();
 	};
 }
