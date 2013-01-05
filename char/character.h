@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string>
 #include <vector>
+#include <iostream>
 using namespace std;
 namespace WoS{
 
@@ -37,12 +38,12 @@ class Character{
 		//returns answer from character
 		virtual string talk_to(string character) = 0;
 
-		virtual void action(const string act)= 0;
 
 	public:
 		const int ID() const;
 		const string type() const;
 	   	const string name() const;
 		const vector<Item*> getItems() const;
+		virtual void action(const string act)= 0;
 };
 }

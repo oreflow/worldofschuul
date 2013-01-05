@@ -28,6 +28,6 @@ protected:
 		//takes a string argument and performs the given action.
 		//returns true if action was successful
 		//false otherwise
-		virtual void action(const string act = "");
+		virtual void action(const string playerAction);
 };
 }

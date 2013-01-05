@@ -22,18 +22,18 @@ namespace WoS{
 	{
 		private:
 		int gameTimer;
-		int rooms;
+		int rs;
 		int chars;
 
-		vector<Room*> room;
-		vector<Character*> character;
+		vector<Room*> rooms;
+		vector<Character*> characters;
 
 		vector<vector<Character*>> cir;
 		vector<Room*> currentRoom;
 
-		void initializeRooms();
-		void initializeCharacters();
-
+		void loadMap();
+		void loadCharacters();
+		void loadItems();
 		public:
 
 		Room& getRoom(const int roomID) const;
@@ -48,32 +48,10 @@ namespace WoS{
 
 		string moveCharacter(int characterID, string direction);
 		void setPlayer(Character* ch);
+		void runCommand(string command);
 
 
 		Game();
 		~Game();
 	};
 }
-	
-using namespace WoS;
-int main()
-	{
-		bool active = true;
-		string str;
-		cout << "background story: enter name." << endl;
-		cin >> str;
-		Game g;
-		Player* p = new Player(&g, str);
-		g.setPlayer(p);
-
-		while(active)
-		{
-		cin >> str;
-
-		cout << "Game Over!\nDu skrev: " << str << endl;
-		active = false;
-		}
-
-		return 0;
-	}
-

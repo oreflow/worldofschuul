@@ -28,6 +28,6 @@ protected:
 		~Player();
 		
 		//takes a string argument and performs the given action.
-		virtual void action(const string act = "");
+		virtual void action(const string act);
 };
 }

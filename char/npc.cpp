@@ -23,11 +23,11 @@ NPC::NPC(Game* g, const int ID, const string type, const string name)
 
 NPC::~NPC()
 {
-
+game = NULL;
 }
 
 
-void NPC::action(const string)
+void NPC::action(const string playerAction)
 {
 
 }

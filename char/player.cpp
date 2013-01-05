@@ -27,6 +27,17 @@ game = NULL;
 
 void Player::action(const string act)
 {
+	// commands are given as:
+	// <command> <preference>
+	//
+	// Available commands:
+	// go <direction>
+	//
+	
+	
+	
+	cout << "player acting:" << act << endl;
+	
 
 }
 
