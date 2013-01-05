@@ -14,7 +14,7 @@ Item::~Item()
 
 Item& Item::operator=(Item& i)
 {
-
+	return *this;
 }
 bool Item::operator==(Item& i)
 {

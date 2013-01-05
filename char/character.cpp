@@ -1,5 +1,5 @@
 #include "character.h"
-#include "game.h"
+#include "../game.h"
 #include "item.h"
 using namespace WoS;
 using namespace std;
@@ -43,6 +43,7 @@ string Character::pick_up(string item)
 	{
 		cout << item << " was not found" << endl;
 	}
+	return "";
 }
 
 string Character::drop(string item)
