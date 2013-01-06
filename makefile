@@ -31,7 +31,7 @@ game: game.cpp characters items room
 	g++ $(FLAGS) $(DIRS) -c game.cpp  
 
 WoS: WoS.cpp characters items room game
-	g++ $(FLAGS) $(DIRS) character.o player.o game.o room.o item.o WoS.cpp -o WoS.o
+	g++ $(FLAGS) $(DIRS) character.o player.o npc.o game.o room.o item.o WoS.cpp -o WoS.o
 
 clean:
 	rm *.o

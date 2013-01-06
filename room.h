@@ -51,5 +51,7 @@ class Room{
 	// gets the room reached by the given direction, or NULL if direction does not exist
 	Room* getDirection(string direction);
 
+	string getRandomDirection();
+
 };
 }

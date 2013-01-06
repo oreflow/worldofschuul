@@ -14,7 +14,7 @@ class Player : public Character
 
 protected:
 		// returns the damage and attack type
-		virtual string fight(string character);
+		virtual string fight(string item, string character);
 
 		//returns answer from character
 		virtual string talk_to(string character);

@@ -1,5 +1,7 @@
 #include "room.h"
 #include "item.h"
+#include <time.h>
+#include <set>
 
 using namespace WoS;
 using namespace std;
@@ -107,4 +109,14 @@ void Room::printDirections()
 Room* Room::getDirection(string direction)
 {
 	return neighbours.at(direction);
+}
+
+string Room::getRandomDirection()
+{
+	srand ( time(NULL) );
+	map<string,Room*>::iterator it = neighbours.begin();
+	int random = rand() % neighbours.size();
+	advance( it, random);
+	return it->first;	
+
 }

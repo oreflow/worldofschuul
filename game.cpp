@@ -44,7 +44,7 @@ void Game::loadMap()
 		getline( ss, to,  ',' );
 		getline( ss, dir,   ',' );
 		rooms[atoi(from.c_str())]->addNeighbour(dir,rooms[atoi(to.c_str())]);
-		//cout << "From: " << from << " To: " << to << endl;
+		cout << "From: " << from << " To: " << to << " via: " << dir << endl;
 	}
 }
 
@@ -52,11 +52,19 @@ void Game::loadCharacters(string str)
 {
 
 	cir.resize(rs);
-	Player* p = new Player(this, str);
-	characters.push_back(p);
+	Character* c = new Player(this, str);
+	characters.push_back(c);
 	currentRoom.push_back(rooms[0]);
 	cir[0].push_back(characters[0]);
 	chars++;
+	
+	//labasse Erik börjar i lab-salen
+	c = new NPC(this,1,"Labassisstant","Erik");
+	characters.push_back(c);
+	currentRoom.push_back(rooms[4]);
+	cir[4].push_back(characters[1]);
+	chars++;
+
 }
 
 void Game::loadItems()
@@ -81,9 +89,9 @@ string Game::getCurrentRoomDescription() const
 	return getRoom(*characters.at(0)).getDescription();
 }
 
-Room& Game::getRoom(const int roomID) const
+Room& Game::getRoom(const int characterID) const
 {
-	return *rooms[roomID];
+	return *currentRoom[characterID];
 }
 
 Room& Game::getRoom(const Character& character) const
@@ -119,11 +127,12 @@ void Game::dropItem(int characterID, Item* item)
 
 bool Game::canMove(const int characterID, const string direction) const
 {
-	return currentRoom[0]->isNeighbour(direction);
+	return currentRoom[characterID]->isNeighbour(direction);
 }
 
 string Game::moveCharacter(int characterID, string direction)
 {
+
 	Room* oldRoom = currentRoom[characterID];
 	Room* newRoom = oldRoom->getDirection(direction);
 
@@ -133,12 +142,20 @@ string Game::moveCharacter(int characterID, string direction)
 		return "There is no room in that direction";
 	}
 	else{
-		cir[oldRoom->ID()].clear();
+		vector<Character*>::iterator it;
+		for(it = cir[oldRoom->ID()].begin();it != cir[oldRoom->ID()].end(); ++it)
+		{
+			if((*it)->ID() == characterID)
+			{
+				break;
+			}
+		}
+		cir[oldRoom->ID()].erase(it);
 
 		cir[(*newRoom).ID()].push_back(characters[characterID]);
 		currentRoom[characterID] = newRoom;
 	}
-	//TODO Maybe another return value?
+	//TODO Maybe another return value? du kan va ett annat return value
 	return "Moved " + direction;
 }
 

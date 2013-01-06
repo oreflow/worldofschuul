@@ -27,7 +27,7 @@ class Character{
 		string go(const string direction);
 
 		// returns the damage and attack type
-		virtual string fight(string character) = 0;
+		virtual string fight(string item, string character) = 0;
 
 		// returns the item picked up or NULL if pickup failed
 		string pick_up(string item);
@@ -37,6 +37,8 @@ class Character{
 
 		//returns answer from character
 		virtual string talk_to(string character) = 0;
+
+		string searchRoom();
 
 
 	public:

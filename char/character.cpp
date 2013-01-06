@@ -73,3 +73,8 @@ string Character::drop(string item)
 	return ret;
 }
 
+string Character::searchRoom()
+{
+game->getCurrentRoomDescription();
+return "";
+}

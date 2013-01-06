@@ -27,9 +27,11 @@ namespace WoS{
 
 		vector<Room*> rooms;
 		vector<Character*> characters;
+		vector<Item*> items;
 
 		vector<vector<Character*>> cir;
 		vector<Room*> currentRoom;
+
 
 		void loadMap();
 		void loadCharacters(string str);
@@ -38,7 +40,7 @@ namespace WoS{
 
 		string getCurrentRoomDescription() const;
 
-		Room& getRoom(const int roomID) const;
+		Room& getRoom(const int characterID) const;
 		Room& getRoom(const Character& character) const;
 		
 		const vector<Character*> getCharacters() const;

@@ -9,7 +9,7 @@ int main()
 {
 	bool active = true;
 	string str;
-	cout << "You have entered the World of Schuul \nyour goal in this game is to learn stuff\nto your help you have the following commands:\ngo <direction>\nsearch\npick up <item>\ndrop <item>\nuse <item> on <target>\n" << endl;
+	cout << "You have entered the World of Schuul \nyour goal in this game is to learn stuff\nto your help you have the following commands:\ngo <direction>\nwait\nsearch\npick up <item>\ndrop <item>\nuse <item> on <target>\n\nType \"quit\" to leave the world of schuul" << endl;
 	cout << "Enter your name: " << endl;
 	cin >> str;
 	Game g(str);
@@ -22,7 +22,7 @@ int main()
 
 		if(str.compare("exit") == 0 ||str.compare("quit") == 0 )
 		{	
-			cout << "Exiting the World of Schuul" << endl;
+			cout << "Leaving the World of Schuul" << endl;
 			active = false;
 		}
 		else
@@ -31,5 +31,6 @@ int main()
 
 	return 0;
 }
+
 
 

@@ -34,7 +34,6 @@ void Player::action(const string act)
 	// Available commands:
 	// go <direction>
 	//
-	cout << "player acting:" << act << endl;
 	
 	stringstream ss(act);
 
@@ -46,12 +45,41 @@ void Player::action(const string act)
 	{
 		ss >> cmd;
 		cout << go(cmd) << endl << endl;
+	}else if(cmd.compare("wait") == 0)
+	{
+	}else if(cmd.compare("search") == 0)
+	{
+		cout << searchRoom() << endl << endl;
+	}else if(cmd.compare("pick") == 0)
+	{
+		ss >> cmd;
+		if(cmd.compare("up") == 0)
+		{
+		ss >> cmd;
+		cout << pick_up(cmd) << endl << endl;
+		}
+	}else if(cmd.compare("drop") == 0)
+	{
+		ss >> cmd;
+		cout << drop(cmd) << endl << endl;
+	}else if(cmd.compare("use") == 0)
+	{
+		string item;
+		ss >> item;
+		if(ss >> cmd)
+		{
+			ss >> cmd;
+			cout << fight(item,cmd) << endl << endl;
+		}
 	}
+
+
 }
 
-string Player::fight(string character)
+string Player::fight(string item, string character)
 {
-	return 0;
+	cout << "Fighting " << character << " with " << item << endl;
+	return "";
 }
 
 string Player::talk_to(string character)

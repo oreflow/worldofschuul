@@ -11,9 +11,10 @@ class Item;
 
 class NPC : public Character
 	{
+		bool inWorld;
 protected:
 		// returns the damage and attack type
-		virtual string fight(string character);
+		virtual string fight(string item, string character);
 
 		//returns answer from said character
 		virtual string talk_to(string character);
