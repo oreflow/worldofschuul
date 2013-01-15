@@ -13,15 +13,13 @@ class Item{
 	int volume;
 	int value;
 
-	const string name;
-	const string type;
-
+	string iName;
+	string type;
 	public:
-	Item();
-	~Item();
 	Item& operator=(Item& i);
 	bool operator==(Item& i);
 	const string getName() const;
+	const string getType() const;
 	const int getWeight() const;
 	const int getVolume() const;
 	const int getValue() const;

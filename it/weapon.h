@@ -11,7 +11,9 @@ namespace WoS{
 class Weapon : public Item{
 	public:
 	Weapon();
+	Weapon(string name);
 	~Weapon();
+	virtual string getDescription();
 
 };
 }

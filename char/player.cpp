@@ -1,5 +1,6 @@
 #include "player.h"
 #include "item.h"
+#include "../game.h"
 #include <sstream>
 using namespace WoS;
 using namespace std;
@@ -44,24 +45,26 @@ void Player::action(const string act)
 	if(cmd.compare("go") == 0)
 	{
 		ss >> cmd;
-		cout << go(cmd) << endl << endl;
+		go(cmd);
+		game->printRoom(cID,false);
 	}else if(cmd.compare("wait") == 0)
 	{
 	}else if(cmd.compare("search") == 0)
 	{
-		cout << searchRoom() << endl << endl;
+		searchRoom();
 	}else if(cmd.compare("pick") == 0)
 	{
 		ss >> cmd;
 		if(cmd.compare("up") == 0)
 		{
 		ss >> cmd;
-		cout << pick_up(cmd) << endl << endl;
+		pick_up(cmd);
 		}
 	}else if(cmd.compare("drop") == 0)
 	{
 		ss >> cmd;
-		cout << drop(cmd) << endl << endl;
+		drop(cmd);
+		items.erase(cmd);
 	}else if(cmd.compare("use") == 0)
 	{
 		string item;
@@ -69,22 +72,32 @@ void Player::action(const string act)
 		if(ss >> cmd)
 		{
 			ss >> cmd;
-			cout << fight(item,cmd) << endl << endl;
+			fight(item,cmd);
 		}
 	}
-
-
+	else
+	{
+	}
+	return;
 }
 
-string Player::fight(string item, string character)
+void Player::fight(string item, string character)
 {
-	cout << "Fighting " << character << " with " << item << endl;
-	return "";
+	Item* tmp = getItem(item);
+	if(tmp != NULL)
+	{
+		game->fight(cID,tmp,character);
+	}
+	else{
+		cout << "You don't have item " << item << endl;
+	}
+	return;
 }
 
-string Player::talk_to(string character)
+void Player::talk_to(string character)
 {
-	return 0;
+	game->talkTo(cID,character);
+	return;
 }
 
 

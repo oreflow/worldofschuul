@@ -2,7 +2,7 @@
 
 #include <stdlib.h>
 #include <string>
-#include <vector>
+#include <map>
 #include <iostream>
 using namespace std;
 namespace WoS{
@@ -19,33 +19,31 @@ class Character{
 		int energy;	
 		int maxenergy;
 
-		vector<Item*> items;
+		map<string,Item*> items;
 		
 		Game* game;		
 		
-		// returns empty string if move was possible, error message otherwise
-		string go(const string direction);
+		void go(const string direction);
 
-		// returns the damage and attack type
-		virtual string fight(string item, string character) = 0;
+		virtual void fight(string item, string character) = 0;
 
-		// returns the item picked up or NULL if pickup failed
-		string pick_up(string item);
+		void pick_up(string item);
 
-		// returns empty string if pickup was possible, error message otherwise
-		string drop(string item);
+		void drop(string item);
 
-		//returns answer from character
-		virtual string talk_to(string character) = 0;
+		virtual void talk_to(string character) = 0;
 
-		string searchRoom();
+		void searchRoom() const;
 
 
 	public:
 		const int ID() const;
 		const string type() const;
 	   	const string name() const;
-		const vector<Item*> getItems() const;
 		virtual void action(const string act)= 0;
+
+		void takeDamage(int dmg);
+		bool addItem(Item* it);
+		Item* getItem(string name);
 };
 }

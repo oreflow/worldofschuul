@@ -8,11 +8,13 @@ using namespace std;
 Game::Game(string str)
 {
 	chars = 0;
-	gameTimer = 0;
+	gameTimer = 30;
 	loadMap();
 
 	loadCharacters(str);
-	
+
+	loadItems();	
+	rooms[6]->needsKey = true;
 	cout << "Game map initialized" << endl;
 }
 void Game::loadMap()
@@ -44,7 +46,7 @@ void Game::loadMap()
 		getline( ss, to,  ',' );
 		getline( ss, dir,   ',' );
 		rooms[atoi(from.c_str())]->addNeighbour(dir,rooms[atoi(to.c_str())]);
-		cout << "From: " << from << " To: " << to << " via: " << dir << endl;
+		//cout << "DEBUG " << "From " << from << " To: " << to << " Dir: " << dir << endl;
 	}
 }
 
@@ -65,10 +67,24 @@ void Game::loadCharacters(string str)
 	cir[4].push_back(characters[1]);
 	chars++;
 
+	//Läraren står och väntar i "lecture hall"
+	c = new NPC(this,2,"Teacher","Stefan");
+	characters.push_back(c);
+	currentRoom.push_back(rooms[6]);
+	cir[6].push_back(characters[2]);
+	chars++;
 }
 
 void Game::loadItems()
 {
+items.push_back(new Weapon("book"));
+rooms[3]->addItem(items[0]);
+
+items.push_back(new Key("key",6));
+characters[1]->addItem(items[1]);
+
+items.push_back(new Weapon("knowledge"));
+characters[2]->addItem(items[2]);
 
 }
 
@@ -82,11 +98,16 @@ Game::~Game()
 	{
 		delete (*it);
 	}
+	for(vector<Item*>::iterator it = items.begin();it != items.end();++it)
+	{
+		delete (*it);
+	}
+
 }
 
-string Game::getCurrentRoomDescription() const
+void Game::printRoom(int characterID,bool description) const
 {
-	return getRoom(*characters.at(0)).getDescription();
+	currentRoom[characterID]->print(description);
 }
 
 Room& Game::getRoom(const int characterID) const
@@ -114,10 +135,21 @@ vector<Character*> Game::getCharacters(const Room& room) const
 	return cir[room.ID()];
 }
 
-Item* Game::takeItem(int characterID, string item)
+void Game::takeItem(int characterID, string item)
 {
-	Room r = *currentRoom[characterID];
-	return r.removeItem(item);
+
+	Item* tmp = currentRoom[characterID]->removeItem(item);
+	if(tmp == NULL)
+	{
+		cout << "Item " << item << " was not found" << endl;
+		return;
+	}
+	{
+		cout << "Picked up item " << item << endl;
+		characters[characterID]->addItem(tmp);
+		return;
+	}
+
 }
 
 void Game::dropItem(int characterID, Item* item)
@@ -125,23 +157,38 @@ void Game::dropItem(int characterID, Item* item)
 	currentRoom[characterID]->addItem(item);
 }
 
-bool Game::canMove(const int characterID, const string direction) const
-{
-	return currentRoom[characterID]->isNeighbour(direction);
-}
 
-string Game::moveCharacter(int characterID, string direction)
+void Game::moveCharacter(int characterID, string direction)
 {
 
 	Room* oldRoom = currentRoom[characterID];
-	Room* newRoom = oldRoom->getDirection(direction);
+	Room* newRoom = oldRoom->getNeighbour(direction);
 
 	if(newRoom == NULL)
 	{
-		// Doesn't seem to work, crashes on the previous line instead.
-		return "There is no room in that direction";
+		cout <<  "There is no room in that direction" << endl;
+		return;
 	}
-	else{
+
+
+	if(newRoom->needsKey)
+	{
+		string str = "key";
+		if(characters[characterID]->getItem(str) == NULL)
+		{
+			cout <<  "you need a key to enter that room" << endl ;
+			return;
+		}
+	}
+	if(oldRoom->needsKey)
+	{
+		string str = "key";
+		if(characters[characterID]->getItem(str) == NULL)
+		{
+			return;
+		}
+	}
+
 		vector<Character*>::iterator it;
 		for(it = cir[oldRoom->ID()].begin();it != cir[oldRoom->ID()].end(); ++it)
 		{
@@ -154,9 +201,58 @@ string Game::moveCharacter(int characterID, string direction)
 
 		cir[(*newRoom).ID()].push_back(characters[characterID]);
 		currentRoom[characterID] = newRoom;
+	
+	if(characterID == 0)
+	{
+		cout << "Moved " << direction << endl;
 	}
-	//TODO Maybe another return value? du kan va ett annat return value
-	return "Moved " + direction;
+}
+
+void Game::fight(int charID, Item* item, string target)
+{
+	cout << "DEBUG trying to use " << item->getName() << " on " << target << endl; 
+	Character* t;
+	for(vector<Character*>::iterator it = characters.begin();it != characters.end();++it)
+	{
+		if(((*it)->name()).compare(target) == 0)
+			t = *it;
+	}
+	if(currentRoom[charID] != currentRoom[t->ID()])
+	{
+		cout << "Cannot find target" << endl;
+		return;
+	}
+	if(item->getName().compare("book") == 0)
+	{
+		cout << "You whack the book across the face of " << t->name() << endl;
+		t->takeDamage(50);
+
+	}
+}
+void Game::talkTo(int charID, string target)
+{
+return;
+}
+bool Game::gameGoal()
+{
+	if(	currentRoom[0]->ID() == 6 &&
+		characters[0]->getItem("key") != NULL &&
+		characters[0]->getItem("book") != NULL)
+		return true;
+
+	return false;
+
+}
+bool Game::gameLost()
+{
+	if(gameTimer<=0)
+		return true;
+	return false;
+}
+
+int Game::timeLeft()
+{
+	return gameTimer;
 }
 
 void Game::runCommand(string command)
@@ -165,4 +261,5 @@ void Game::runCommand(string command)
 		{
 			(*it)->action(command);
 		}
+		gameTimer--;
 }

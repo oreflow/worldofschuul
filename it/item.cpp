@@ -3,26 +3,21 @@ using namespace WoS;
 using namespace std;
 
 
-Item::Item()
-{
-}
-
-Item::~Item()
-{
-
-}
-
 Item& Item::operator=(Item& i)
 {
 	return *this;
 }
 bool Item::operator==(Item& i)
 {
-	return name.compare(i.name);
+	return iName.compare(i.iName);
 }
 const string Item::getName() const
 {
-return name;
+return iName;
+}
+const string Item::getType() const
+{
+return type;
 }
 const int Item::getWeight() const
 {

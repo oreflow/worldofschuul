@@ -2,7 +2,7 @@
 
 #include <stdlib.h>
 #include <string>
-#include <vector>
+#include <map>
 #include "character.h"
 
 using namespace std;
@@ -14,10 +14,10 @@ class NPC : public Character
 		bool inWorld;
 protected:
 		// returns the damage and attack type
-		virtual string fight(string item, string character);
+		virtual void fight(string item, string character);
 
 		//returns answer from said character
-		virtual string talk_to(string character);
+		virtual void talk_to(string character);
 
 	public:
 		NPC();

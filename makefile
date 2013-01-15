@@ -13,14 +13,12 @@ player: char/player.cpp char/player.h
 npc: char/npc.cpp char/npc.h
 	g++ $(FLAGS) $(DIRS) -c char/npc.cpp 
 
-items: item weapon powerup key 
+items: item weapon key 
 
 item: it/item.cpp it/item.h 
 	g++ $(FLAGS) $(DIRS) -c it/item.cpp
 weapon: it/weapon.cpp it/weapon.h
 	g++ $(FLAGS) $(DIRS) -c it/weapon.cpp
-powerup: it/powerup.cpp it/powerup.h
-	g++ $(FLAGS) $(DIRS) -c it/powerup.cpp
 key: it/key.cpp it/key.h
 	g++ $(FLAGS) $(DIRS) -c it/key.cpp
 	
@@ -31,7 +29,7 @@ game: game.cpp characters items room
 	g++ $(FLAGS) $(DIRS) -c game.cpp  
 
 WoS: WoS.cpp characters items room game
-	g++ $(FLAGS) $(DIRS) character.o player.o npc.o game.o room.o item.o WoS.cpp -o WoS.o
+	g++ $(FLAGS) $(DIRS) character.o player.o npc.o game.o room.o item.o key.o weapon.o WoS.cpp -o WoS.o
 
 clean:
 	rm *.o

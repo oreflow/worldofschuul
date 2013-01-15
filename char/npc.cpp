@@ -35,15 +35,17 @@ void NPC::action(const string playerAction)
 {
 	if(!inWorld)
 		return;
-	if(energy<10)
+
+	if(energy<10 || health < 10)
 	{
 		//om energy är mindre än 10
-		for(vector<Item*>::iterator it = items.begin();it != items.end();++it)
+		for(map<string,Item*>::iterator it = items.begin();it != items.end();++it)
 		{
-			drop((*it)->getName());
+			drop(it->first);
 		}
 		inWorld = false;
-		cout << cName << "has dropped all items and fled from the world of schuul" << endl;
+		items.clear();
+		cout << cName << " has dropped all items and fled from the world of schuul" << endl;
 		return;
 	}
 
@@ -51,17 +53,25 @@ void NPC::action(const string playerAction)
 
 	if(&game->getRoom(cID) != &game->getRoom(0))
 	{// npcn är inte i samma rum som spelaren
-		string direct = myRoom.getRandomDirection();
-		go(direct);
+		srand ( time(NULL) );
+		int random = rand() % 100;
+		if(random>50)
+		{
+			string direct = myRoom.getRandomDirection();
+			go(direct);
+		}
+		else
+			wait();
 	}
 	else{
 		// npcn är i samma rum som spelaren
 		fight("question", "player");
 	}
-	//use
 }
-string NPC::fight(string item, string character)
+
+void NPC::fight(string item, string character)
 {
+	if(cType.compare("Labassisstant") == 0){
 	cout << cType << " " << cName << " asks a difficult question about c++\nYour answer is:" << endl;
 	string answer;
 	getline(cin,answer);
@@ -70,11 +80,19 @@ string NPC::fight(string item, string character)
 		energy = 0;
 		action("");
 	}
-	return "";
+	return ;
+	}else if(cType.compare("Teacher") == 0)
+	{
+	if(!game->gameGoal())
+		cout << cType << " " << cName << ": You need to bring a book to the lecture " << endl;
+	else
+		cout << cType << " " << cName << ": Yay, you made it" << endl;
+	return ;
+	}
 }
 
-string NPC::talk_to(string character)
+void NPC::talk_to(string character)
 {
-	return "";
+	return;
 }
 

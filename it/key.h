@@ -9,7 +9,10 @@ using namespace std;
 namespace WoS{
 
 class Key : public Item{
-	Key();
+	public:	
+	int roomnr;
+	Key(string name,int room);
+	virtual string getDescription();
 	~Key();
 };
 }

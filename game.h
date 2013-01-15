@@ -6,7 +6,6 @@
 #include "npc.h"
 
 #include "weapon.h"
-#include "powerup.h"
 #include "key.h"
 
 
@@ -36,22 +35,32 @@ namespace WoS{
 		void loadMap();
 		void loadCharacters(string str);
 		void loadItems();
-		public:
 
-		string getCurrentRoomDescription() const;
-
-		Room& getRoom(const int characterID) const;
 		Room& getRoom(const Character& character) const;
 		
 		const vector<Character*> getCharacters() const;
 		vector<Character*> getCharacters(const int roomID) const;
 		vector<Character*> getCharacters(const Room& room) const;
 
-		Item* takeItem(int characterID, string item);
+
+		public:
+
+		Room& getRoom(const int characterID) const;
+
+		void printRoom(int characterID, bool description) const;
+		
+		void takeItem(int characterID, string item);
 		void dropItem(int characterID, Item* item);
 
-		bool canMove(const int characterID, const string direction) const;
-		string moveCharacter(int characterID, string direction);
+		void moveCharacter(int characterID, string direction);
+		
+		void fight(int charID, Item* item, string target);
+		void talkTo(int charID, string target);
+
+		bool gameGoal();
+		bool gameLost();
+		int timeLeft();
+		
 		void runCommand(string command);
 
 

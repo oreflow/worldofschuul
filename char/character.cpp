@@ -19,62 +19,63 @@ const string Character::name() const
 	return cName;
 }
 
-const vector<Item*> Character::getItems() const
+bool Character::addItem(Item* item)
 {
-	return items;
-}
-
-
-string Character::go(const string direction)
-{
-	if(game->canMove(ID(), direction))
-	{
-		return game->moveCharacter(ID(),direction);
+	try{
+	items.insert(pair<string,Item*>(item->getName(),item));
+	return true;
 	}
-	else
+	catch(...)
 	{
-		//TODO Maybe another return value.
-		return "You can't go " + direction + " from this location!";
+		return false;
 	}
 }
 
-
-string Character::pick_up(string item)
+void Character::go(const string direction)
 {
-	Item* tmp = game->takeItem(cID,item);
-	if(tmp != NULL)
-	{
-		items.push_back(tmp);
-		cout << item << " picked up." << endl;
-	}
-	else
-	{
-		cout << item << " was not found" << endl;
-	}
-	return "";
+	game->moveCharacter(ID(),direction);
+	return;
 }
 
-string Character::drop(string item)
+void Character::pick_up(string item)
 {
-	for(vector<Item*>::iterator it = items.begin();it != items.end();++it)
-	{
-		if((*it)->getName().compare(item) == 0)
-		{
-			// item was found in inventory
-			game->dropItem(cID, (*it));
-			items.erase(it);
-			string ret = "Dropped item ";
-			ret.append(item);
-			return ret;
-		}
-	}
-	string ret = "Was not able to drop ";
-	ret.append(item);
-	return ret;
+	game->takeItem(cID,item);
+	return;
 }
 
-string Character::searchRoom()
+
+void Character::drop(string item)
 {
-game->getCurrentRoomDescription();
-return "";
+	try{
+		Item* tmp = items.at(item);
+
+		game->dropItem(cID,tmp);
+		return;
+	}
+	catch(...)
+	{
+		return;
+	}
+}
+
+
+void Character::searchRoom()const 
+{
+	game->printRoom(cID,true);
+}
+
+Item* Character::getItem(string itemName)
+{
+	try{
+		return items.at(itemName);
+	}
+	catch(...)
+	{
+		return NULL;
+	}
+}
+
+void Character::takeDamage(int dmg)
+{
+	health -= dmg;
 }
