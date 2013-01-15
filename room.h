@@ -27,7 +27,6 @@ class Room{
 	bool needsKey;
 
 
-	// add neighbour by string direction and pointer to neighbour
 	void addNeighbour(string str, Room* room);
 
 	bool isNeighbour(const string str) const;
