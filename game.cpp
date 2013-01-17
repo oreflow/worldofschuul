@@ -13,13 +13,13 @@ Game::Game(string str)
 
 	loadCharacters(str);
 
-	loadItems();	
+	loadItems();
 	rooms[6]->needsKey = true;
 	cout << "Game map initialized" << endl;
 }
 void Game::loadMap()
 {
-	
+
 	rooms.clear();
 	ifstream in;
 	string name;
@@ -59,7 +59,7 @@ void Game::loadCharacters(string str)
 	currentRoom.push_back(rooms[0]);
 	cir[0].push_back(characters[0]);
 	chars++;
-	
+
 	//labasse Erik börjar i lab-salen
 	c = new NPC(this,1,"Labassisstant","Erik");
 	characters.push_back(c);
@@ -77,14 +77,14 @@ void Game::loadCharacters(string str)
 
 void Game::loadItems()
 {
-items.push_back(new Weapon("book"));
-rooms[3]->addItem(items[0]);
+	items.push_back(new Weapon("book"));
+	rooms[3]->addItem(items[0]);
 
-items.push_back(new Key("key",6));
-characters[1]->addItem(items[1]);
+	items.push_back(new Key("key",6));
+	characters[1]->addItem(items[1]);
 
-items.push_back(new Weapon("knowledge"));
-characters[2]->addItem(items[2]);
+	items.push_back(new Weapon("knowledge"));
+	characters[2]->addItem(items[2]);
 
 }
 
@@ -189,19 +189,19 @@ void Game::moveCharacter(int characterID, string direction)
 		}
 	}
 
-		vector<Character*>::iterator it;
-		for(it = cir[oldRoom->ID()].begin();it != cir[oldRoom->ID()].end(); ++it)
+	vector<Character*>::iterator it;
+	for(it = cir[oldRoom->ID()].begin();it != cir[oldRoom->ID()].end(); ++it)
+	{
+		if((*it)->ID() == characterID)
 		{
-			if((*it)->ID() == characterID)
-			{
-				break;
-			}
+			break;
 		}
-		cir[oldRoom->ID()].erase(it);
+	}
+	cir[oldRoom->ID()].erase(it);
 
-		cir[(*newRoom).ID()].push_back(characters[characterID]);
-		currentRoom[characterID] = newRoom;
-	
+	cir[(*newRoom).ID()].push_back(characters[characterID]);
+	currentRoom[characterID] = newRoom;
+
 	if(characterID == 0)
 	{
 		cout << "Moved " << direction << endl;
@@ -231,7 +231,7 @@ void Game::fight(int charID, Item* item, string target)
 }
 void Game::talkTo(int charID, string target)
 {
-return;
+	return;
 }
 bool Game::gameGoal()
 {
@@ -257,9 +257,9 @@ int Game::timeLeft()
 
 void Game::runCommand(string command)
 {
-		for(vector<Character*>::iterator it = characters.begin();it != characters.end(); ++it)
-		{
-			(*it)->action(command);
-		}
-		gameTimer--;
+	for(vector<Character*>::iterator it = characters.begin();it != characters.end(); ++it)
+	{
+		(*it)->action(command);
+	}
+	gameTimer--;
 }

@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string>
 #include <map>
+#include <time.h>
 #include "character.h"
 
 using namespace std;

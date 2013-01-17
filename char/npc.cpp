@@ -60,8 +60,8 @@ void NPC::action(const string playerAction)
 			string direct = myRoom.getRandomDirection();
 			go(direct);
 		}
-		else
-			wait();
+		else{}
+			//wait();
 	}
 	else{
 		// npcn är i samma rum som spelaren

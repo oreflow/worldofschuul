@@ -13,6 +13,7 @@ Room::Room(const int ID, const string name, const string description)
 	rID = ID;
 	rName = name;
 	rDescription = description;
+	needsKey = false;
 }
 
 Room::~Room()
