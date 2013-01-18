@@ -210,7 +210,7 @@ void Game::moveCharacter(int characterID, string direction)
 
 void Game::fight(int charID, Item* item, string target)
 {
-	cout << "DEBUG trying to use " << item->getName() << " on " << target << endl; 
+	//cout << "DEBUG trying to use " << item->getName() << " on " << target << endl; 
 	Character* t;
 	for(vector<Character*>::iterator it = characters.begin();it != characters.end();++it)
 	{
@@ -245,7 +245,7 @@ bool Game::gameGoal()
 }
 bool Game::gameLost()
 {
-	if(gameTimer<=0)
+	if(gameTimer<=1)
 		return true;
 	return false;
 }

@@ -19,13 +19,7 @@ int main()
 	while(active)
 	{
 		getline(cin,str);
-		for(int i=0;i<50;i++)
-		{
-			cout << "-";
-			if(i == 24)
-				cout << "Time left: " << g.timeLeft();
-		}
-		cout << "-" <<endl;
+		
 
 		if(str.compare("exit") == 0 ||str.compare("quit") == 0 )
 		{	
@@ -46,6 +40,14 @@ int main()
 		{
 			cout << endl;
 			g.runCommand(str);
+			
+			for(int i=0;i<50;i++)
+			{
+				cout << "-";
+				if(i == 24)
+					cout << "Time left: " << g.timeLeft();
+			}
+			cout << "-" <<endl;
 		}
 	}
 
